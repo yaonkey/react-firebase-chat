@@ -22,6 +22,10 @@ body {
   padding: 10px;
   box-sizing: border-box;
 }
+.App header a{
+  text-decoration: none;
+  color: white;
+}
 .App section {
   display: flex;
   flex-direction: column;

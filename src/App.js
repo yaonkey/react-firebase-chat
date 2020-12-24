@@ -18,8 +18,6 @@ firebase.initializeApp({
   messagingSenderId: "366185541328",
   appId: "1:366185541328:web:8eeb43e5dc6977f8df38d5",
   measurementId: "G-N5KVS2YG0M"
-
-
 })
 
 const auth = firebase.auth();
@@ -34,7 +32,7 @@ function App() {
   return (
     <div className="App">
       <header> {/*Создание компонента header*/}
-        <h1>Atmosphere ⚛️🔥💬</h1>
+        <h1><a href='https://github.com/yaonkey/react-firebase-chat' target='_blank'>Atmosphere ⚛️🔥💬</a></h1>
         <SignOut /> {/* Кнопка выхода из аккаунта */}
       </header>
 

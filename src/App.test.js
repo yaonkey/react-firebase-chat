@@ -1,9 +1,9 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from 'react'; // Импортирование библиотеки React
+import { render } from '@testing-library/react'; // Импортирование библиотеки с тестами
+import App from './App'; // Импортирование главного компонента веб-приложения
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders learn react link', () => { // Использование встроенных методов отладки
+  const { getByText } = render(<App />); // Отрисовка всех дочерних компонентов родительского компонента App
+  const linkElement = getByText('/Atmosphere/'); // Отладка ссылок
+  expect(linkElement).toBeInTheDocument(); // Переход по ссылкам
 });
