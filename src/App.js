@@ -22,8 +22,9 @@ firebase.initializeApp({
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
-const analytics = firebase.analytics();
+// const analytics = firebase.analytics();
 
+var isRulesShow = false;
 
 function App() {
 
@@ -32,7 +33,7 @@ function App() {
   return (
     <div className="App">
       <header> {/*Создание компонента header*/}
-        <h1><a href='https://github.com/yaonkey/react-firebase-chat' target='_blank'>Atmosphere ⚛️🔥💬</a></h1>
+        <h1><a href='https://github.com/yaonkey/react-firebase-chat' target='_blank'>Atmosphere</a></h1>
         <SignOut /> {/* Кнопка выхода из аккаунта */}
       </header>
 
@@ -55,20 +56,32 @@ function SignIn() {
     <>
     {/* Создание кнопки входа */}
       <button className="sign-in" onClick={signInWithGoogle}>Вход с Google</button>
-      <p>Будьте аккуратны, иначе будете забанены навсегда!</p>
+      <h2 className='sign-in-text'>
+        Будьте аккуратны, иначе будете забанены навсегда!
+      </h2>
     </>
   )
 }
 
 function SignOut() {
   return auth.currentUser && (
-    <button className="sign-out" onClick={() => auth.signOut()}>Выход</button>
+    <button className="sign-out" onClick={() => auth.signOut()}>🚪</button>
   )
 }
 
+// delete it
+function getNum(str) {
+  let nums = str.match(/(\d+)/g);
+  if (nums != null){
+    return true;
+  }else{
+    return false;
+  }
+}
+// delete it
 
 function ChatRoom() {
-  const dummy = useRef(); // Получение данных о пользователе
+  const dummy = useRef(); // Получение данных об окружении
   const messagesRef = firestore.collection('messages'); // Получение данных о сообщениях
   const query = messagesRef.orderBy('createdAt').limit(25); // Создание лимита отображаемых сообщений в размере 25
   const [messages] = useCollectionData(query, { idField: 'id' }); // Получение сообщений из базы данных
@@ -76,12 +89,14 @@ function ChatRoom() {
   const sendMessage = async (e) => { // Реализация отправки сообщения
     e.preventDefault(); // Отмена стандартных действий
     const { uid, photoURL } = auth.currentUser; // Получение текущего пользователя
+
     await messagesRef.add({ // Создание асинхронной функции для ввода текста
-      text: formValue, // Текст сообщения пользователя
+      text: `${formValue}`,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(), // Получение времени отправки сообщения
       uid, // Идентификатор пользователя
       photoURL // Фотография пользователя
     })
+
     setFormValue(''); // Очистка формы
     dummy.current.scrollIntoView({ behavior: 'smooth' }); // Добавление визуального эффекта при прокрутке сообщений
   }
@@ -93,23 +108,57 @@ function ChatRoom() {
       <span ref={dummy}></span>
     </main>
     <form onSubmit={sendMessage}>
-      <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Введите сообщение..." />
-      <button type="submit" disabled={!formValue}>🕊️</button>
+      <input autoFocus value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Введите сообщение..." />
+      <button type="submit" disabled={!formValue}>🚀</button>
     </form>
   </>)
 }
 
 function ChatMessage(props) {
-  const { text, uid, photoURL } = props.message; // Получение данных о сообщении
+  const { text, uid, photoURL, createdAt } = props.message; // Получение данных о сообщении
   // Получение данных об отправителе
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
   // Возвращаем сообщение, а также фотографию пользователя из google
   return (<>
     <div className={`message ${messageClass}`}>
+      {/* <p>{createdAt}</p> */}
       <img src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
       <p>{text}</p>
     </div>
   </>)
+}
+
+function RulesShow(){
+  return ( <>
+    <main>
+      <div>
+        <h3>
+          Подробнее о правилах блокировки
+        </h3>
+        <p>
+          Блокировка пользователей может происходить лишь при нарушении некоторого свода правил, к которым относятся:
+        </p>
+        <ul>
+          <li>1. В чате запрещено спамить</li>
+          <li>2. В чате запрещена реклама каких-либо товаров или услуг, запрещенных законодательством</li>
+          <li>3. В чате запрещены действия, разжигающие межрасовые или межнациональные конфликты</li>
+          <li>4. В чате запрщены ссылки на откровенный контент</li>
+        </ul>
+        <p>
+          При соблюдении данных правил, риск быть заблокированным в системе сводится к нулю. Будьте аккуратны и берегите себя!
+        </p>
+      </div>
+      <div>
+        <p>
+          Информацию о технической стороне мессенджера можно найти <a href='https://github.com/yaonkey/react-chat-messenger'>
+          Тут
+          </a>
+        </p>
+      </div>
+      <button onClick={isRulesShow=false}>Принял</button>
+    </main>
+    </>
+  )
 }
 
 

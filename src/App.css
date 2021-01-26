@@ -1,5 +1,10 @@
 body {
-  background-color: #282c34;
+  /* background-color: #282c34; */
+  background-image: url('/bg.gif');
+  background-size: cover;
+  /* overflow-y: hidden; 
+  overflow-x: hidden; 
+  overflow: -moz-scrollbars-vertical; */
 }
 .App {
   text-align: center;
@@ -7,7 +12,10 @@ body {
   margin: 0 auto;
 }
 .App header {
-  background-color: #181717;
+  /* background-color: #181717; */
+  background-image: url('/head.gif');
+  border-radius: 8px;
+  background-size: cover;
   height: 10vh;
   min-height: 50px;
   color: white;
@@ -31,26 +39,38 @@ body {
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
-  background-color: rgb(40, 37, 53); 
+  /* background-color: rgb(40, 37, 53);  */
+  /* background-image: url('/mes.gif');
+  background-size: cover; */
 }
 main {
-  padding: 10px;
-  height: 80vh;
+  padding: -150px;
+  height: 77vh;
   margin: 10vh 0 10vh;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
+  border: 0.5rem solid rgb(178, 88, 167);
+  border-radius: 8px;
+  /* overflow: -moz-scrollbars-vertical;
+  overflow-x: hidden;
+  overflow-y: hidden; */
+}
+::-webkit-scrollbar { /* chrome based */
+  width: 0px;  /* ширина scrollbar'a */
+  background: transparent;  /* опционально */
 }
 main::-webkit-scrollbar {
   width: 0.25rem;
 }
 main::-webkit-scrollbar-track {
-  background: #1e1e24;
+  background:  transparent; /*#1e1e24;*/
 }
 main::-webkit-scrollbar-thumb {
-  background: #6649b8;
+  background: transparent; /*#6649b8;*/
 }
 form {
+  border-radius: 8px;
   height: 10vh;
   position: fixed;
   bottom: 0;
@@ -61,15 +81,18 @@ form {
   font-size: 1.5rem;
 }
 form button {
-  width: 20%;
-  background-color: rgb(56, 56, 143);
+  width: 26%;
+  background-image: url('/header.gif');
+  background-size: cover;
 }
 input {
+  border-radius: 8px 0px 0px 8px;
   line-height: 1.5;
   width: 100%;
   font-size: 1.5rem;
-  background: rgb(58, 58, 58);
-  color: white;
+  background-image: url('/head.gif');
+  background-size: cover;
+  color: black;
   outline: none;
   border: none;
   padding: 0 10px;
@@ -89,11 +112,36 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.sign-in {
-  color: #282c34;
-  background: white;
+.sign-in{
+  color: white;
+  font-size: 24px;
+  background-image: url('/head.gif');
+  background-size: cover;
+  background-repeat: no-repeat;
   max-width: 400px;
   margin: 0 auto;
+  border: solid black 3px;
+  border-radius: 8px;
+  transition: all .7s;
+}
+.sign-in:hover{
+  font-size: 26px;
+  color: black;
+  background-position: 0px -90px;
+  transition: all .7s;
+}
+.sign-in-text{
+  color: white;
+  border: solid black 3px;
+  border-radius: 8px;
+  background-image: url('/head.gif');
+}
+.sign-out{
+  border-radius: 8px;
+  width: 15%;
+  background-image: url('/head.gif');
+  background-size: cover;
+  border: solid black 3px;
 }
 ul, li {
   text-align: left;
@@ -117,13 +165,31 @@ p {
   flex-direction: row-reverse;
 }
 .sent p {
-  color: white;
+  font-weight: normal;
+  cursor: pointer;
+  color: transparent;
+  transition: all .2s;
+  font-size: 12px;
   background: #0b93f6;
   align-self: flex-end;
 }
+.sent p:hover{
+  color: white;
+  font-size: 14px;
+  transition: all .5s;
+}
 .received p {
   background: #e5e5ea;
+  font-weight: normal;
+  cursor: pointer;
+  color: transparent;
+  transition: all .2s;
+  font-size: 12px;
+}
+.received p:hover{
   color: black;
+  font-size: 14px;
+  transition: all .5s;
 }
 img {
   width: 40px;
@@ -131,4 +197,3 @@ img {
   border-radius: 50%;
   margin: 2px 5px;
 }
-
